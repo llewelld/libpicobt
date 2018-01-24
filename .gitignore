@@ -1,0 +1,27 @@
+# ignore keys
+keypair/
+!keypair/.placeholder
+
+# ignore binaries
+bin/
+build/
+*.o
+*.so
+*.a
+*.dll
+*.exe
+
+# ignore projects
+*.pro
+
+# ignore CMake
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Makefile
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+
+# ignore generated docs
+docs/html/
