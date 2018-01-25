@@ -9,7 +9,7 @@ differences between Windows and Linux.
 
 For more details on the libpicobt API, how to build the packages and so on, see:
 
-https://docs.mypico.org/developer/libpicobt/
+https://docs.mypico.org/developer/libbt/
 
 ## Install
 
