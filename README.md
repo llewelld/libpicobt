@@ -7,20 +7,40 @@ differences between Windows and Linux.
 
 ## Documentation
 
-For more details on the libpicobt API, how to build the packages and so on, see:
+For more details on the libpicobt API and how to build the entire Pico stack, see the developer docs.
 
-https://docs.mypico.org/developer/libbt/
+https://docs.mypico.org/developer/
 
-## Install
+## Install from source
 
-If you have cmake you should be able to builf using the following commands:
+You'll need to ensure you've installed the [build dependencies](https://docs.mypico.org/developer/libpicobt/#deps) before you attempt to compile and install libpicobt. If you're using Ubuntu 16.04, you can install all the build dependencies using `apt`.
+
+```
+sudo apt install openssh-client git libbluetooth-dev cmake dh-exec gcovr check pkg-config \
+  doxygen graphviz
+```
+
+Assuming you've got all these, download the latest version from the git repository and move inside the project folder.
+
+```
+git clone git@github.com:mypico/libpicobt.git
+cd libpicobt
+```
+
+You can now build using cmake with the following commands:
 
 ```
 cmake .
 make
 ```
 
-However, we recommend you build the deb or rpm package instead. See the developer docs for details about how to do this.
+After this, the cleanest way to install it is to build the deb or rpm packages and install these:
+
+```
+make package
+sudo dpkg -i packages/libpicobt_0.0.1_amd64-run.deb
+sudo dpkg -i packages/libpicobt_0.0.1_amd64-dev.deb
+```
 
 ## License
 
