@@ -3,7 +3,182 @@
 
 \section libpicobt Libpicobt Overview
 
+\subsection summary Summary
+
+Libpicobt is a cross-platform Bluetooth library used by Pico. Windows (through the Windows Socket API) and Linux (through the BlueZ API) are currently supported. Libpicobt attempts to unify the Bluetooth interface so that both platforms can access the same functionality through a platform-independent and consistent interface.
+
+The instructions below assume you're using Ubuntu 16.04. It will build and run on other systems, but you'll need to adjust the instructions to suit your platform if you're using something else.
+
+Libpicobt is available for Windows, either built using Visual Studio 2015, or MinGW. It is also available for Linux in either DEB or RPM format.
+
+\subsection windowsinstall Windows installation
+
+There is no specific installation for Windows. Simply download a copy of the Windows archive from the [Pico website](https:mypico.org) and unzip it to a folder called `libpicobt` on your hard drive. When you want to compile and link a library against libpicobt, ensure the `libpicobt/include` folder is contained in your includes path, and that the `libpicobt` folder is included in your library path. See the \ref examples section for an idea about how to do this.
+
+\subsubsection windowsbuild Building for Windows
+
+To build libpicobt for Windows, you'll need to have the following installed on your machine.
+ - Visual Studio 2015 (VS14)
+ - git
+ - cmake, version 2.8 or later
+
+Here we show how you can build it at the command line, but `cmake` will also produce Visual Studio ptoject files if you ask it to.
+
+Open a Visual Studio command shell and then you can use the following sequence of commands to build the library.
+
+\verbatim
+git clone git@gitlab.dtg.cl.cam.ac.uk:pico/libpicobt.git
+call "%VS140COMNTOOLS%..\..\VC\vcvarsall.bat" amd64
+cd libpicobt
+mkdir build
+cd build
+cmake .. -G "NMake Makefiles"
+nmake
+\endverbatim
+
+\subsection linuxinstall Linux installation
+
+Before installing libpicobt you should decide whether you want the runtime, or developer version of the library. If you just want to run other programs that use libpicobt, the runtime version will be fine. If you plan to develop your own software that needs libpicobt, or build software from source that uses libpicobt, you'll need the developer version.
+
+\subsubsection linuxinstallbinrun Runtime binary installation
+
+The easiest way to install libpicobt is directly from the Pico PPA. Enter the following commands to add the PPA to your system:
+
+\verbatim
+sudo add-apt-repository ppa:mypico/ppa
+sudo apt-get update
+\endverbatim
+
+The install libpicobt using the following command. As well as libpicobt, this will also automaticall install all of its dependencies.
+
+\verbatim
+sudo apt install libpicobt-run
+\endverbatim
+
+If you don't want to add the Pico PPA, you can also download the latest package from the [Pico website](https:mypico.org). You'll need to install all of the following dependencies yourself if you do it this way.
+
+ - libbluetooth3, version 4.91 or later
+ - libc6, version 2.14 or later
+
+On Ubuntu 16.04 these dependencies can be installed as follows.
+
+\verbatim
+sudo apt install libbluetooth3 libc6
+\endverbatim
+
+Then use the following to install libpicobt:
+
+<pre class="fragment">
+sudo dpkg -i libpicobt_0.0.1_amd64-run.deb
+</pre>
+
+\subsubsection linuxinstallbindev Developer binary installation
+
+The easiest way to install libpicobt developer files is directly from the Pico PPA. Enter the following commands to add the PPA to your system:
+
+\verbatim
+sudo add-apt-repository ppa:mypico/ppa
+sudo apt-get update
+\endverbatim
+
+The install the libpicobt developer files using the following command. As well as libpicobt, this will also automaticall install all of its dependencies.
+
+\verbatim
+sudo apt install libpicobt-dev
+\endverbatim
+
+If you don't want to add the Pico PPA, you can also download the latest package from the [Pico website](https:mypico.org). You'll need to install all of the following dependencies yourself if you do it this way.
+
+ - libbluetooth3-dev, version 4.91 or later
+ - libc6, version 2.14 or later
+
+On Ubuntu 16.04 these dependencies can be installed as follows.
+
+\verbatim
+sudo apt install libbluetooth3-dev libc6
+\endverbatim
+
+Then use the following to install libpicobt:
+
+<pre class="fragment">
+sudo dpkg -i libpicobt_0.0.1_amd64-dev.deb
+</pre>
+
+\subsubsection linuxbuild Building from source for Linux
+
+To build on Linux you'll need the following (at least):
+ - libbluetooth-dev, version 4.91 or later
+ - libc6, version 2.14 or later
+ - cmake, version 2.8 or later
+ - git
+ - gcc
+ - make
+ - pkg-config
+ - dh-exec (to build the DEB package)
+ - doxygen (to build this documentation)
+ - graphviz
+
+On Ubuntu 16.04 these dependencies can be installed as follows.
+
+\verbatim
+sudo apt install libbluetooth3-dev libc6 cmake git gcc make pkg-config dh-exec doxygen graphviz
+\endverbatim
+
+Now grab yourself a copy of the code from the repository and compile the libraries.
+
+\verbatim
+git clone git@gitlab.dtg.cl.cam.ac.uk:pico/libpicobt.git
+cd libpicobt
+cmake .
+make package
+\endverbatim
+
+This will create a shared library `libpicobt.so` a static library `libpicobt.a` and two deb packages in the `packages` folder. You can now install these packages so they're ready for use on your system.
+
+<pre class="fragment">
+sudo dpkg -i packages/libpicobt_0.0.1_amd64-dev.run
+sudo dpkg -i packages/libpicobt_0.0.1_amd64-dev.deb
+</pre>
+
+The documentation you're reading now was generated using doxygen. If you want to generate it yourself, get the libpicobt source and simply run `doxygen` in the project root.
+
+\verbatim
+doxygen
+\endverbatim
+
+The html files will be generated and output to the docs folder.
+
+\subsection examples Example code
+
+Below are two short snippets of code that provide an eco server and client that connects using Bluetooth. To test this code, change the value of `REMOTE_ADDRESS` to the MAC address of a device that is paired with the client.
+
+To build the example on Linux use, save out the code as `server-port.c` and `client-port.c` and use
+
+\verbatim
+gcc server-port.c -o server-port -Ilibpicobt/include -Llibpicobt -lbt -lbluetooth
+gcc client-port.c -o client-port -Ilibpicobt/include -Llibpicobt -lbt -lbluetooth
+\endverbatim
+
+To build it on Windows, save out the code as `server-port.c` and use
+
+\verbatim
+gcc server-port.c -o server-port.exe -Ilibpicobt/include -Llibpicobt -lbt -lws2_32 -DWINDOWS
+gcc client-port.c -o client-port.exe -Ilibpicobt/include -Llibpicobt -lbt -lws2_32 -DWINDOWS
+\endverbatim
+
+The <a href="examples.html">examples</a> page provides some example code for how to use the functionality of libpicobt.
+
+\subsubsection server Example echo server code
+
+\include server-port.c
+
+\subsubsection server Example echo client code
+
+\include client-port.c
+
 \subsection story A story
+
+<em>[If you've got this far, you deserve something a little different.]</em>
 
 Peregrine tensed his legs and pushed his heels further into the mud. Sitting against one of the upright beams in the trench, his back would have felt uncomfortable if he weren't so distracted by the rattling of the packet fire overhead. A deep boom shook the earth beneath him and blue sparks shot across the sky as another logic bomb exploded nearby. That can't have been more then three hundred metres away, Peregrine thought.
 
@@ -22,134 +197,6 @@ And then a shout from further along the trench. Not the shout of an injured sold
 Peregrine thought he heard. Could it really be?
 
 And so it was. After months of fighting, no one really knowing what they were fighting for, a war of attrition, the fighting had finally come to an end. Libpicobt had finally arrived.
-
-\subsection summary Summary
-
-Libpicobt is a cross-platform Bluetooth library used by Pico. Windows (through the Windows Socket API) and Linux (through the BlueZ API) are currently supported. Libpicobt attempts to unify the Bluetooth interface so that both platforms can access the same functionality through a platform-independent and consistent interface.
-
-\subsection install Installation
-
-Libpicobt is available for Windows, either built using Visual Studio 2015, or MinGW. It is also available fir Linux in either DEB or RPM format.
-
-\subsubsection windowsinstall Windows installation
-
-There is no specific installation for Windows. Simply download a copy of the Windows archive from the [Pico website](https:mypico.org) and unzip it to a folder called `libpicobt` on your hard drive. When you want to compile and link a library against libpicobt, ensure the `libpicobt/include` folder is contained in your includes path, and that the `libpicobt` folder is included in your library path. See the \ref examples section for an idea about how to do this.
-
-\subsubsection linuxinstall Linux installation
-
-If you're running Ubuntu you can install libpicobt directly from the Pico PPA. Enter the following commands to add the PPA to your system:
-
-```
-sudo add-apt-repository ppa:mypico/ppa
-sudo apt-get update
-```
-
-The install libpicobt using the following command. As well as libpicobt, this will also automaticall install all of its dependencies.
-
-```
-sudo apt install libpicobt-run
-sudo apt install libpicobt-dev
-```
-
-This will install both the runtime and developer packages. If you just want to use libpicobt with another program and don't want to create new code linked to libpicobt, then the first line will be enough.
-
-If you don't want to add the Pico PPA, you can also download the latest package from the [Pico website](https:mypico.org). You'll need to install all of the dependencies yourself if you do it this way (see the @ref deps section). Then use the following to install libpicobt:
-
-```
-sudo dpkg -i libpicobt_0.0.1_amd64-run.deb
-sudo dpkg -i libpicobt_0.0.1_amd64-dev.deb
-```
-
-As before, you should install either the runtime package, or both the runtime and development packages, depending on your use case.
-
-\subsection build Building from source
-
-Ensure you have all of the dependencies listed \ref deps below. Then something along the following lines should do it.
-
-\subsubsection windowsbuild Building for Windows
-
-To build libpicobt for Windows, you'll need to have a copy of Visual Studio installed. Here we show how you can build it at the command line, but `cmake` will also produce Visual Studio ptoject files if you ask it to.
-
-Open a Visual Studio command shell and then you can use the following sequence of commands to build the library.
-
-```
-git clone git@gitlab.dtg.cl.cam.ac.uk:pico/libpicobt.git
-call "%VS140COMNTOOLS%..\..\VC\vcvarsall.bat" amd64
-cd libpicobt
-mkdir build
-cd build 
-cmake .. -G "NMake Makefiles" 
-nmake
-```
-
-
-
-\subsubsection linuxbuild Building for Linux
-
-```
-git clone git@gitlab.dtg.cl.cam.ac.uk:pico/libpicobt.git
-cd libpicobt
-cmake .
-make package
-```
-
-This will create a shared library `libpicobt.so` a static library `libpicobt.a` and two deb packages in the `packages` folder.
-
-\subsubsection dicbuild Building the documentation
-
-The documentation you're reading now was generated using doxygen. If you want to generate it yourself, get the libpicobt source and simply run `doxygen` in the project root.
-
-```
-doxygen
-```
-
-The html files will be generated and output to the docs folder.
-
-\subsection deps Dependencies
-
-On Linux libpicobt requires the following runtime dependencies (at least):
- - libbluetooth3, version 4.91 or later
- - libc6, version 2.14 or later
-
-To build on Linux you'll need the following (at east):
- - libbluetooth-dev, version 4.91 or later
- - cmake, version 2.8 or later
- - gcc
- - make
- - dh-exec (to build the DEB package)
- - doxygen (to build this documentation)
-
-On Windows libpicobt requires the following runtime dependencies:
- - Visual Studio 2015 (VS14)
- - cmake, version 2.8 or later
-
-\subsection examples Example code
-
-Below are two short snippets of code that provide an eco server and client that connects using Bluetooth. To test this code, change the value of `REMOTE_ADDRESS` to the MAC address of a device that is paired with the client.
-
-To build the example on Linux use, save out the code as `server-port.c` and `client-port.c` and use
-
-```
-gcc server-port.c -o server-port -Ilibpicobt/include -Llibpicobt -lbt -lbluetooth
-gcc client-port.c -o client-port -Ilibpicobt/include -Llibpicobt -lbt -lbluetooth
-```
-
-To build it on Windows, save out the code as `server-port.c` and use
-
-```
-gcc server-port.c -o server-port.exe -Ilibpicobt/include -Llibpicobt -lbt -lws2_32 -DWINDOWS
-gcc client-port.c -o client-port.exe -Ilibpicobt/include -Llibpicobt -lbt -lws2_32 -DWINDOWS
-```
-
-The <a href="examples.html">examples</a> page provides some example code for how to use the functionality of libpicobt.
-
-\subsubsection server Example echo server code
-
-\include server-port.c
-
-\subsubsection server Example echo client code
-
-\include client-port.c
 
 \subsection authors Authors
 
