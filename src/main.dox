@@ -27,7 +27,7 @@ Here we show how you can build it at the command line, but `cmake` will also pro
 Open a Visual Studio command shell and then you can use the following sequence of commands to build the library.
 
 \verbatim
-git clone git@gitlab.dtg.cl.cam.ac.uk:pico/libpicobt.git
+git clone git@github.com:mypico/libpicobt.git
 call "%VS140COMNTOOLS%..\..\VC\vcvarsall.bat" amd64
 cd libpicobt
 mkdir build
@@ -127,7 +127,7 @@ sudo apt install libbluetooth3-dev libc6 cmake git gcc make pkg-config dh-exec d
 Now grab yourself a copy of the code from the repository and compile the libraries.
 
 \verbatim
-git clone git@gitlab.dtg.cl.cam.ac.uk:pico/libpicobt.git
+git clone git@github.com:mypico/libpicobt.git
 cd libpicobt
 cmake .
 make package
