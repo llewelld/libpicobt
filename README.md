@@ -11,6 +11,10 @@ For more details on the libpicobt API and how to build the entire Pico stack, se
 
 https://docs.mypico.org/developer/
 
+If you want to build all the Pico components from source in one go, without having to worry about the details, see:
+
+https://github.com/mypico/pico-build-all
+
 ## Install from source
 
 You'll need to ensure you've installed the [build dependencies](https://docs.mypico.org/developer/libpicobt/#deps) before you attempt to compile and install libpicobt. If you're using Ubuntu 16.04, you can install all the build dependencies using `apt`.
