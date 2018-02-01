@@ -42,8 +42,8 @@ After this, the cleanest way to install it is to build the deb or rpm packages a
 
 ```
 make package
-sudo dpkg -i packages/libpicobt_0.0.1_amd64-run.deb
-sudo dpkg -i packages/libpicobt_0.0.1_amd64-dev.deb
+sudo dpkg -i packages/libpicobt_0.0.2_amd64-run.deb
+sudo dpkg -i packages/libpicobt_0.0.2_amd64-dev.deb
 ```
 
 ## License

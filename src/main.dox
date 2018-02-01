@@ -69,7 +69,7 @@ sudo apt install libbluetooth3 libc6
 Then use the following to install libpicobt:
 
 <pre class="fragment">
-sudo dpkg -i libpicobt_0.0.1_amd64-run.deb
+sudo dpkg -i libpicobt_0.0.2_amd64-run.deb
 </pre>
 
 \subsubsection linuxinstallbindev Developer binary installation
@@ -101,7 +101,7 @@ sudo apt install libbluetooth3-dev libc6
 Then use the following to install libpicobt:
 
 <pre class="fragment">
-sudo dpkg -i libpicobt_0.0.1_amd64-dev.deb
+sudo dpkg -i libpicobt_0.0.2_amd64-dev.deb
 </pre>
 
 \subsubsection linuxbuild Building from source for Linux
@@ -136,8 +136,8 @@ make package
 This will create a shared library `libpicobt.so` a static library `libpicobt.a` and two deb packages in the `packages` folder. You can now install these packages so they're ready for use on your system.
 
 <pre class="fragment">
-sudo dpkg -i packages/libpicobt_0.0.1_amd64-dev.run
-sudo dpkg -i packages/libpicobt_0.0.1_amd64-dev.deb
+sudo dpkg -i packages/libpicobt_0.0.2_amd64-dev.run
+sudo dpkg -i packages/libpicobt_0.0.2_amd64-dev.deb
 </pre>
 
 The documentation you're reading now was generated using doxygen. If you want to generate it yourself, get the libpicobt source and simply run `doxygen` in the project root.

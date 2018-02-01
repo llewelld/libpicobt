@@ -1,5 +1,5 @@
 Name:           libpicobt
-Version:        0.0.1
+Version:        0.0.2
 Release:        1%{?dist}
 Summary:        Platform-neutral Bluetooth API
 
@@ -62,6 +62,15 @@ ctest -V %{?_smp_mflags}
 
 
 %changelog
+* Mon Feb 1 2018 David Llewellyn-Jones - 0.0.2-1
+- Improved unit tests
+- Improved documentation
+- New bt_read() and bt_write() function prototypes
+- New echo server examples
+- Various bug fixes
+- Additional functions for handling devices
+- Improved log handling
+
 * Mon Jul 11 2017 David Llewellyn-Jones - 0.0.1-1
 - Added spec file for building as an RPM
 - Support for use on Mer and Fedora
