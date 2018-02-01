@@ -3,7 +3,7 @@ cmake_policy(VERSION 2.8)
 
 project(libpicobt C)
 set(CMAKE_BUILD_TYPE Debug)
-set(PROJECT_VERSION 0.0.1)
+set(PROJECT_VERSION 0.0.2)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules/")
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror")
