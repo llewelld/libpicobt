@@ -45,8 +45,9 @@ Before installing libpicobt you should decide whether you want the runtime, or d
 The easiest way to install libpicobt is directly from the Pico PPA. Enter the following commands to add the PPA to your system:
 
 \verbatim
-sudo add-apt-repository ppa:mypico/ppa
-sudo apt-get update
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 22991E96
+sudo add-apt-repository "deb https://get.mypico.org/apt/ xenial main"
+sudo apt update
 \endverbatim
 
 The install libpicobt using the following command. As well as libpicobt, this will also automaticall install all of its dependencies.
@@ -77,8 +78,9 @@ sudo dpkg -i libpicobt_0.0.2_amd64-run.deb
 The easiest way to install libpicobt developer files is directly from the Pico PPA. Enter the following commands to add the PPA to your system:
 
 \verbatim
-sudo add-apt-repository ppa:mypico/ppa
-sudo apt-get update
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 22991E96
+sudo add-apt-repository "deb https://get.mypico.org/apt/ xenial main"
+sudo apt update
 \endverbatim
 
 The install the libpicobt developer files using the following command. As well as libpicobt, this will also automaticall install all of its dependencies.
