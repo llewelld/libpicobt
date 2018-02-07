@@ -61,6 +61,10 @@ sudo dpkg -i packages/libpicobt_0.0.2_amd64-run.deb
 sudo dpkg -i packages/libpicobt_0.0.2_amd64-dev.deb
 ```
 
+## Using libpicobt
+
+For info about how to use libpicobt in your own programmes, see the [developer documentation](https://docs.mypico.org/developer/libpicobt/).
+
 ## License
 
 Libpicobt is released under the AGPL licence. Read COPYING for information.
