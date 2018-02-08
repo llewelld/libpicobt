@@ -103,12 +103,12 @@ set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_PATCH})
 
 # Create two packages: runtime and development
 set(CPACK_COMPONENTS_ALL run dev)
-set(CPACK_COMPONENT_RUN_DISPLAY_NAME "Runtime")
-set(CPACK_COMPONENT_DEV_DISPLAY_NAME "Development")
+set(CPACK_COMPONENT_RUN_DISPLAY_NAME "libpicobt runtime library")
+set(CPACK_COMPONENT_DEV_DISPLAY_NAME "libpicbt development files")
 
 # Set human-readable descriptions
-set(CPACK_COMPONENT_RUN_DESCRIPTION "Runtime shared libraries")
-set(CPACK_COMPONENT_DEV_DESCRIPTION "Development static libraries and headers")
+set(CPACK_COMPONENT_RUN_DESCRIPTION "Pico Bluetooth runtime shared library")
+set(CPACK_COMPONENT_DEV_DESCRIPTION "Pico Bluetooth development files")
 
 # Ensure the dev package also installs the runtime package
 # The following line should set a dependency between packages but appears to have no effect for DEB
