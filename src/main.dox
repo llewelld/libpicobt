@@ -115,6 +115,7 @@ To build on Linux you'll need the following (at least):
  - git
  - gcc
  - make
+ - check
  - pkg-config
  - dh-exec (to build the DEB package)
  - doxygen (to build this documentation)
